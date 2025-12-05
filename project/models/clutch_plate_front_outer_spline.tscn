@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://xnnu1thsdlcn"]
+
+[ext_resource type="PackedScene" uid="uid://wxh6qnbcm78h" path="res://models/clutch_plate_front_outer_spline.gltf" id="1_81icj"]
+[ext_resource type="Script" uid="uid://cjkjbil6gd1x3" path="res://models/clutch_plate_front_outer_spline.gd" id="2_erkqo"]
+
+[node name="clutch_plate_front_outer_spline" instance=ExtResource("1_81icj")]
+
+[node name="Mesh" parent="Node/Node2" index="0"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+script = ExtResource("2_erkqo")

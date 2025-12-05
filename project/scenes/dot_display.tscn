@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3tuqjk7cg04"]
+
+[ext_resource type="Script" uid="uid://dk1q1flktmfgx" path="res://scenes/dot_display.gd" id="1_fdyxa"]
+
+[sub_resource type="Environment" id="Environment_fdyxa"]
+background_mode = 1
+background_color = Color(0.22745098, 0.4509804, 0.9882353, 1)
+
+[node name="DotDisplay" type="Node3D"]
+script = ExtResource("1_fdyxa")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.8484086, 0, 0.52934194, 0, 1, 0, -0.52934194, 0, 0.8484086, 0.31776655, -0.25584602, 2.1298785)
+environment = SubResource("Environment_fdyxa")
+
+[node name="TitleCard" type="Label3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6874504, -0.37756586, -2.8681974)
+outline_modulate = Color(1, 1, 1, 1)
+text = "2004-06
+Subaru Impreza WRX STi
+Driver Controlled Center Differential"
+outline_size = 2
+horizontal_alignment = 0
+line_spacing = -5.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0810614)

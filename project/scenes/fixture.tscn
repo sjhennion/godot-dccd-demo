@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://3rdu6jqi30ly"]
+
+[ext_resource type="PackedScene" uid="uid://xnnu1thsdlcn" path="res://models/clutch_plate_front_outer_spline.tscn" id="1_185vh"]
+[ext_resource type="Script" uid="uid://bm7fgmmqw7v7" path="res://scenes/fixture.gd" id="1_nv5yu"]
+[ext_resource type="PackedScene" uid="uid://7g33g5tsnxyf" path="res://models/clutch_plate_front_inner_spline.tscn" id="3_gfij8"]
+[ext_resource type="PackedScene" uid="uid://qel5jo3ps4ga" path="res://models/housing.tscn" id="4_ryhvc"]
+
+[node name="Fixture" type="Node3D"]
+script = ExtResource("1_nv5yu")
+
+[node name="clutch_plate_front_outer_spline" parent="." instance=ExtResource("1_185vh")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="Mesh" parent="clutch_plate_front_outer_spline/Node/Node2" index="0"]
+offset = 1.0
+
+[node name="clutch_plate_front_outer_spline2" parent="." instance=ExtResource("1_185vh")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -1)
+
+[node name="Mesh" parent="clutch_plate_front_outer_spline2/Node/Node2" index="0"]
+offset = 2.0
+
+[node name="clutch_plate_front_outer_spline3" parent="." instance=ExtResource("1_185vh")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -2)
+
+[node name="Mesh" parent="clutch_plate_front_outer_spline3/Node/Node2" index="0"]
+offset = 3.0
+
+[node name="clutch_plate_front_inner_spline" parent="." instance=ExtResource("3_gfij8")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.5)
+
+[node name="Mesh" parent="clutch_plate_front_inner_spline/Node/Node2" index="0"]
+offset = 1.5
+
+[node name="clutch_plate_front_inner_spline2" parent="." instance=ExtResource("3_gfij8")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -1.5)
+
+[node name="Mesh" parent="clutch_plate_front_inner_spline2/Node/Node2" index="0"]
+offset = 2.5
+
+[node name="clutch_plate_front_inner_spline3" parent="." instance=ExtResource("3_gfij8")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -2.5)
+
+[node name="Mesh" parent="clutch_plate_front_inner_spline3/Node/Node2" index="0"]
+offset = 3.5
+
+[node name="housing" parent="." instance=ExtResource("4_ryhvc")]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, -3)
+
+[editable path="clutch_plate_front_outer_spline"]
+[editable path="clutch_plate_front_outer_spline2"]
+[editable path="clutch_plate_front_outer_spline3"]
+[editable path="clutch_plate_front_inner_spline"]
+[editable path="clutch_plate_front_inner_spline2"]
+[editable path="clutch_plate_front_inner_spline3"]

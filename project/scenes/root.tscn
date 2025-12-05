@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://4023v5cxetli"]
+
+[ext_resource type="Script" uid="uid://bbx2m6oimbea8" path="res://scenes/root.gd" id="1_twpsu"]
+[ext_resource type="PackedScene" uid="uid://b3tuqjk7cg04" path="res://scenes/dot_display.tscn" id="2_lrqlo"]
+[ext_resource type="PackedScene" uid="uid://3rdu6jqi30ly" path="res://scenes/fixture.tscn" id="2_twpsu"]
+
+[sub_resource type="Environment" id="Environment_kycxp"]
+background_mode = 1
+background_color = Color(0.22745098, 0.4509804, 0.9882353, 1)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_twpsu")
+
+[node name="MainMenu" type="Node3D" parent="."]
+
+[node name="StartingCamera" type="Node3D" parent="MainMenu"]
+
+[node name="DotDisplay" parent="MainMenu" instance=ExtResource("2_lrqlo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.777143, 1.0470287, -0.7996999)
+
+[node name="MobileCamera" type="Camera3D" parent="."]
+environment = SubResource("Environment_kycxp")
+
+[node name="Fixture" parent="." instance=ExtResource("2_twpsu")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0, -1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="StaticSideProfileSetup" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+
+[node name="ThreeQuarterCameraPanSetup" type="Node3D" parent="."]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -1, 0, 0)
+
+[node name="SideProfilePanSetup" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="HousingSideSetup" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -1.794, 0, 0.713)
