@@ -2,6 +2,8 @@ name: "Publish to GitHub Pages"
 
 env:
   GODOT_VERSION: 4.5
+  EXPORT_NAME: DCCD
+  PROJECT_PATH: project
 
 on:
   workflow_dispatch:
