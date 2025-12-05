@@ -1,7 +1,7 @@
 extends Node3D
 
-@onready var camera := $Camera3D
-@onready var title_card := $Camera3D/TitleCard
+#@onready var camera := $Camera3D
+#@onready var title_card := $Camera3D/TitleCard
 
 const width := 64
 const height := 48
@@ -235,6 +235,8 @@ func mouse_over(mouse_pos: Vector3) -> void:
 
 
 func _process(delta):
+	pass
+	"""
 	var mouse_pos := get_viewport().get_mouse_position()
 	var mouse_3d = drop_plane.intersects_ray(
 							 camera.project_ray_origin(mouse_pos),
@@ -242,6 +244,7 @@ func _process(delta):
 
 	if mouse_3d != null:
 		mouse_over(mouse_3d)
+	"""
 
 	#print(mouse_3d)
 
