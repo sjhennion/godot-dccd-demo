@@ -1,17 +1,36 @@
 extends Node3D
 
 @onready var fixture = $Fixture
+@onready var fixture_center_point = $FixtureCenterPoint
 @onready var mobile_camera = $MobileCamera
 
 #var mobile_camera := Node3D.new()
 
+@onready var starting_camera_setup = $MainMenu/StartingCameraSetup
 @onready var static_side_profile_setup = $StaticSideProfileSetup
 @onready var side_profile_pan_setup = $SideProfilePanSetup
 @onready var three_quarter_camera_setup = $ThreeQuarterCameraPanSetup
 @onready var housing_side_setup = $HousingSideSetup
 
-@onready var camera_setups: Array[Node3D] = [static_side_profile_setup, side_profile_pan_setup, three_quarter_camera_setup, housing_side_setup]
-var cur_camera_setup_index := 0
+@onready var camera_setup_names: Array[String] = ["StartingCamera", "StaticSideProfile", "SideProfilePan", "ThreeQuarterPan", "HousingSide"]
+
+@onready var camera_setups: Dictionary[String, Node3D] = {
+	"StartingCamera": starting_camera_setup,
+	"StaticSideProfile": static_side_profile_setup,
+	"SideProfilePan": side_profile_pan_setup,
+	"ThreeQuarterPan": three_quarter_camera_setup,
+	"HousingSide": housing_side_setup,
+}
+
+@onready var menu_dot_display := $MainMenu/StartingDotDisplay
+@onready var title_card := $MainMenu/TitleCard
+@onready var menu_camera_setup := $MainMenu/StartingCameraSetup
+
+var at_main_menu := true
+
+var cur_camera_name := "StartingCamera"
+
+#var cur_camera_setup_index := 0
 var transition_start := Node3D.new()
 var transitioning_camera := false
 
@@ -30,26 +49,71 @@ func setup_side_profile_pan():
 	tween.set_loops(0)
 
 func _ready():
-	mobile_camera.position = static_side_profile_setup.position
-	mobile_camera.rotation = static_side_profile_setup.rotation
+	mobile_camera.position = starting_camera_setup.position
+	mobile_camera.rotation = starting_camera_setup.rotation
 
 	setup_side_profile_pan()
 	setup_three_quarter_pan()
+	setup_main_menu_dot_display()
+	setup_title_card()
+	setup_fixture()
+
+func setup_fixture():
+	await get_tree().create_timer(4.0).timeout
+	var fixture_tween := get_tree().create_tween()
+	fixture_tween.set_trans(Tween.TransitionType.TRANS_SINE)
+	fixture_tween.tween_property(fixture, "position", fixture_center_point.position, 9.0)
+	fixture_tween.tween_callback(func():
+		print("Fixture setup complete")
+	)
+
+func setup_main_menu_dot_display():
+	menu_dot_display.mouse_over_viewpoint = mobile_camera
+
+func setup_title_card():
+	title_card.text_chunks.append("2004-2006 Subaru Impreza WRX STi")
+	title_card.text_chunks.append("Driver Controlled Center Differential")
+	title_card.text_chunks.append("Modeled in Zoo Design Studio")
+	title_card.text_chunks.append("Stephan Hennion 2025")
 
 func camera_transition_finished():
 	transitioning_camera = false
 	#mobile_camera = camera_setups[cur_camera_setup_index]
 
 func lerp_transition(weight: float) -> void:
-	mobile_camera.position = transition_start.position.lerp(camera_setups[cur_camera_setup_index].position, weight)
-	mobile_camera.rotation = transition_start.rotation.lerp(camera_setups[cur_camera_setup_index].rotation, weight)
+	mobile_camera.position = transition_start.position.lerp(camera_setups[cur_camera_name].position, weight)
+	mobile_camera.rotation = transition_start.rotation.lerp(camera_setups[cur_camera_name].rotation, weight)
+
+func clear_main_menu():
+	at_main_menu = false
+	menu_dot_display.start_clear()
+	"""
+	var dot_display_tween := get_tree().create_tween()
+	dot_display_tween.tween_property(menu_dot_display, "modulate:a", 0.0, 3.0)
+	dot_display_tween.tween_callback(func():
+		menu_dot_display.visible = false
+	)
+	var title_card_tween := get_tree().create_tween()
+	title_card_tween.tween_property(title_card, "modulate:a", 0.0, 2.0)
+	title_card_tween.tween_callback(func():
+		title_card.visible = false
+	)
+	"""
+	title_card.start_clear()
 
 func cycle_camera():
 	if transitioning_camera:
 		pass
 		#return
 
-	cur_camera_setup_index = cur_camera_setup_index + 1 if cur_camera_setup_index + 1 < camera_setups.size() else 0
+	if at_main_menu:
+		clear_main_menu()
+
+	#cur_camera_setup_index = cur_camera_setup_index + 1 if cur_camera_setup_index + 1 < camera_setups.size() else 0
+	var cur_camera_index := camera_setup_names.find(cur_camera_name)
+	var next_camera_index := cur_camera_index + 1 if cur_camera_index + 1 < camera_setup_names.size() else 1
+	cur_camera_name = camera_setup_names[next_camera_index]
+
 	transition_start.position = mobile_camera.position
 	transition_start.rotation = mobile_camera.rotation
 
@@ -70,5 +134,5 @@ var setup_complete := false
 
 func _process(delta: float) -> void:
 	if not transitioning_camera:
-		mobile_camera.position = camera_setups[cur_camera_setup_index].position
-		mobile_camera.rotation = camera_setups[cur_camera_setup_index].rotation
+		mobile_camera.position = camera_setups[cur_camera_name].position
+		mobile_camera.rotation = camera_setups[cur_camera_name].rotation

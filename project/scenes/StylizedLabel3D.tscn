@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://01evbmqmeqv5"]
+
+[ext_resource type="Script" uid="uid://d1g2f61iufjon" path="res://scenes/stylized_label_3d.gd" id="1_khfk6"]
+
+[node name="StylizedLabel3d" type="Label3D"]
+script = ExtResource("1_khfk6")

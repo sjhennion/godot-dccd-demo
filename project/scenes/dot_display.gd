@@ -3,9 +3,11 @@ extends Node3D
 #@onready var camera := $Camera3D
 #@onready var title_card := $Camera3D/TitleCard
 
+var mouse_over_viewpoint: Node3D
+
 const width := 64
 const height := 48
-const dot_r := 0.015
+const dot_r := 0.013
 const dot_height := 0.005
 const dot_gap := 0.03
 
@@ -36,7 +38,36 @@ func _ready():
 	var peanut := Image.load_from_file("res://images/peanut_side.png")
 	peanut_bitmap = convert_png_to_bitmap(peanut)
 
-	draw_display("peanut", peanut_bitmap)
+	#draw_display("peanut", peanut_bitmap)
+
+	call_deferred("start_bitmap_cycle_loop")
+	await get_tree().create_timer(1.0).timeout
+
+var clear_started := false
+func start_clear() -> void:
+	clear_started = true
+	clear_bitmap()
+
+func clear_bitmap() -> void:
+	for c: int in range(width - 1, -1, -1):
+		for r: int in range(height - 1, -1, -1):
+			var dot: CSGCylinder3D = dots[r][c]
+			var tween = get_tree().create_tween()
+			#tween.tween_property(dot, "modulate:a", 0.0, 1.5)
+			tween.tween_property(dot, "scale", Vector3(0.0, 0.0, 0.0), scale_down_dur)
+			tween.tween_callback(func():
+				dot.visible = false
+			)
+		await get_tree().create_timer(col_time_gap).timeout
+
+func start_bitmap_cycle_loop() -> void:
+	if clear_started:
+		return
+	await get_tree().create_timer(4.5).timeout
+	if clear_started:
+		return
+	cycle_bitmap()
+	start_bitmap_cycle_loop()
 
 const scale_down_dur := 1.0
 const scale_up_dur := 1.0
@@ -52,6 +83,9 @@ const scale_pos_front_factor := 0.025
 func scale_load(bitmap_name: String, bitmap: Array[Array]) -> void:
 	for c: int in range(width):
 		for r: int in range(height):
+			if clear_started:
+				return
+
 			var dot: CSGCylinder3D = dots[r][c]
 
 			var cur_dot = current_bitmap[r][c]
@@ -89,7 +123,7 @@ func scale_load(bitmap_name: String, bitmap: Array[Array]) -> void:
 
 
 var wave_time_gap := 3.0
-var col_time_gap := 0.02
+var col_time_gap := 0.005
 var wave_dot_rot_dur := 1.0
 var wave_pos_delta := 0.03
 
@@ -106,10 +140,6 @@ func wave() -> void:
 			tween2.set_trans(Tween.TransitionType.TRANS_SINE)
 			tween2.tween_property(dot, "position", Vector3(dot.position.x, dot.position.y + wave_pos_delta, dot.position.z), wave_dot_rot_dur)
 			tween2.tween_property(dot, "position", Vector3(dot.position.x, dot.position.y, dot.position.z), wave_dot_rot_dur)
-	#	await get_tree().create_timer(col_time_gap).timeout
-
-	#wave()
-
 
 func wave_load_callback(bitmap: Array[Array], row: int, col: int) -> void:
 	dots[row][col].visible = bitmap[row][col] == 1
@@ -156,19 +186,31 @@ func initialize_display() -> void:
 	var x_offset := (width * dot_gap) / 2.0
 	var y_offset := (height * dot_gap) / 2.0
 
+	var wireframe_shader := load("res://shaders/wireframe.gdshader")
+	var mat := ShaderMaterial.new()
+	mat.shader = wireframe_shader
+	mat.set_shader_parameter("modelColor", Color("3a73fc"))
+	mat.set_shader_parameter("wireframeColor", Color(1.0, 1.0, 1.0, 1.0))
+	mat.set_shader_parameter("width", 5.0)
+
 	for r: int in range(height):
 		var row := Array()
+		var bitmap_row := Array()
 		for c: int in range(width):
 			var dot := CSGCylinder3D.new()
+			dot.material = mat
 			dot.radius = dot_r
 			dot.height = dot_height
 			var x := (c * dot_gap) - x_offset + dot_gap / 2.0
 			var y := y_offset - (r * dot_gap) - dot_gap / 2.0
 			dot.position = Vector3(x, y, 0.0)
 			dot.rotation = Vector3(PI / 2.0, 0.0, 0.0)
+			dot.scale = Vector3(scale_down_factor, scale_down_factor, scale_down_factor)
 			row.append(dot)
+			bitmap_row.append(0)
 			add_child(dot)
 		dots.append(row)
+		current_bitmap.append(bitmap_row)
 
 	dots[0][0].scale = Vector3(0.0, 0.0, 0.0)
 		
@@ -183,8 +225,6 @@ func draw_display(bitmap_name: String, bitmap: Array[Array]) -> void:
 
 
 func cycle_bitmap() -> void:
-	print("Cycle bitmap")
-
 	if current_bitmap_name == "peanut":
 		scale_load("awd", awd_bitmap)
 	else:
@@ -233,20 +273,27 @@ func mouse_over(mouse_pos: Vector3) -> void:
 	pos_tween.tween_property(dot, "position", Vector3(dot.position.x, dot.position.y, scale_pos_back_factor), scale_pos_dur)
 	pos_tween.tween_property(dot, "position", Vector3(dot.position.x, dot.position.y, 0.0), scale_pos_dur)
 
+func handle_mouse_over() -> void:
+	if mouse_over_viewpoint == null:
+		return
 
-func _process(delta):
-	pass
-	"""
 	var mouse_pos := get_viewport().get_mouse_position()
+	print(mouse_pos)
 	var mouse_3d = drop_plane.intersects_ray(
-							 camera.project_ray_origin(mouse_pos),
-							 camera.project_ray_normal(mouse_pos))
+							 mouse_over_viewpoint.project_ray_origin(mouse_pos),
+							 mouse_over_viewpoint.project_ray_normal(mouse_pos))
+	print(mouse_3d)
 
 	if mouse_3d != null:
+		#print("No mouse3d")
+		mouse_3d -= (position + Vector3(-0.9, -0.1, 0.0))
+		#print(mouse_3d)
+		return
 		mouse_over(mouse_3d)
-	"""
 
+
+func _process(delta):
+	handle_mouse_over()
 	#print(mouse_3d)
-
 	pass
 	#call_deferred("wave")
