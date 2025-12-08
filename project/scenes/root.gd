@@ -59,7 +59,7 @@ func _ready():
 	setup_fixture()
 
 func setup_fixture():
-	await get_tree().create_timer(4.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	var fixture_tween := get_tree().create_tween()
 	fixture_tween.set_trans(Tween.TransitionType.TRANS_SINE)
 	fixture_tween.tween_property(fixture, "position", fixture_center_point.position, 9.0)
@@ -87,18 +87,6 @@ func lerp_transition(weight: float) -> void:
 func clear_main_menu():
 	at_main_menu = false
 	menu_dot_display.start_clear()
-	"""
-	var dot_display_tween := get_tree().create_tween()
-	dot_display_tween.tween_property(menu_dot_display, "modulate:a", 0.0, 3.0)
-	dot_display_tween.tween_callback(func():
-		menu_dot_display.visible = false
-	)
-	var title_card_tween := get_tree().create_tween()
-	title_card_tween.tween_property(title_card, "modulate:a", 0.0, 2.0)
-	title_card_tween.tween_callback(func():
-		title_card.visible = false
-	)
-	"""
 	title_card.start_clear()
 
 func cycle_camera():

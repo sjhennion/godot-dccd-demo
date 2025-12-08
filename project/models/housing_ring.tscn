@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://diopde46rum2o"]
+
+[ext_resource type="PackedScene" uid="uid://uditm1nx62o8" path="res://models/housing_ring.gltf" id="1_taqbm"]
+[ext_resource type="Script" uid="uid://cjkjbil6gd1x3" path="res://models/clutch_plate_front_outer_spline.gd" id="2_2k0by"]
+
+[node name="housing_ring" instance=ExtResource("1_taqbm")]
+
+[node name="Mesh" parent="Node/Node2" index="0"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+script = ExtResource("2_2k0by")

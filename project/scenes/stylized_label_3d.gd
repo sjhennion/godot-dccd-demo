@@ -8,7 +8,7 @@ var cur_text_index := 0
 
 var initial_delay := 1.0
 var letter_time := 0.08
-var blink_time := 0.555555
+var blink_time := 0.35
 var blink_target_count := 6
 var blink_count := 0
 

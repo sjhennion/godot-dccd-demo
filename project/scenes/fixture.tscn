@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://3rdu6jqi30ly"]
+[gd_scene load_steps=6 format=3 uid="uid://3rdu6jqi30ly"]
 
 [ext_resource type="PackedScene" uid="uid://xnnu1thsdlcn" path="res://models/clutch_plate_front_outer_spline.tscn" id="1_185vh"]
 [ext_resource type="Script" uid="uid://bm7fgmmqw7v7" path="res://scenes/fixture.gd" id="1_nv5yu"]
 [ext_resource type="PackedScene" uid="uid://7g33g5tsnxyf" path="res://models/clutch_plate_front_inner_spline.tscn" id="3_gfij8"]
 [ext_resource type="PackedScene" uid="uid://qel5jo3ps4ga" path="res://models/housing.tscn" id="4_ryhvc"]
+[ext_resource type="PackedScene" uid="uid://diopde46rum2o" path="res://models/housing_ring.tscn" id="5_w6t3j"]
 
 [node name="Fixture" type="Node3D"]
 script = ExtResource("1_nv5yu")
@@ -46,6 +47,10 @@ offset = 3.5
 
 [node name="housing" parent="." instance=ExtResource("4_ryhvc")]
 transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, -3)
+visible = false
+
+[node name="housing_ring" parent="." instance=ExtResource("5_w6t3j")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -3)
 
 [editable path="clutch_plate_front_outer_spline"]
 [editable path="clutch_plate_front_outer_spline2"]
