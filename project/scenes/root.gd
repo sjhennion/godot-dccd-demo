@@ -112,9 +112,28 @@ func cycle_camera():
 
 	transitioning_camera = true
 
+func reset_to_main():
+	setup_title_card()
+	menu_dot_display.reset_to_main()
+	title_card.reset_to_main()
+	cur_camera_name = "StartingCamera"
+
+	transition_start.position = mobile_camera.position
+	transition_start.rotation = mobile_camera.rotation
+
+	var tween1 = get_tree().create_tween()
+	tween1.set_trans(Tween.TransitionType.TRANS_SINE)
+	tween1.tween_method(lerp_transition, 0.0, 1.0, 1.0)
+	tween1.tween_callback(camera_transition_finished)
+
+	transitioning_camera = true
+	at_main_menu = true
+
 func _input(event):
 	if event.is_action_pressed("CycleCamera"):
 		cycle_camera()
+	if event.is_action_pressed("ResetToMain"):
+		reset_to_main()
 #	if event.is_action_pressed("TransitionToHousing"):
 #		transition_to_housing()
 

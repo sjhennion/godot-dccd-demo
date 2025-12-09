@@ -24,6 +24,15 @@ func start_clear() -> void:
 	clear_called = true
 	clear_text()
 
+func reset_to_main() -> void:
+	clear_called = false
+	cur_full_text = ""
+	cur_next_text = ""
+	cur_text_index = 0
+	blink_count = 0
+	text = " "
+	cursor_blink()
+
 # Remove all the text like pressing backspace quickly
 func clear_text() -> void:
 	while text.length() > 0:

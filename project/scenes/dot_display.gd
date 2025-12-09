@@ -50,6 +50,11 @@ func start_clear() -> void:
 	clear_started = true
 	clear_bitmap()
 
+func reset_to_main() -> void:
+	clear_started = false
+	call_deferred("start_bitmap_cycle_loop")
+	await get_tree().create_timer(1.0).timeout
+
 func clear_bitmap() -> void:
 	for c: int in range(width - 1, -1, -1):
 		for r: int in range(height - 1, -1, -1):
@@ -89,6 +94,7 @@ func scale_load(bitmap_name: String, bitmap: Array[Array]) -> void:
 				return
 
 			var dot: CSGCylinder3D = dots[r][c]
+			dot.visible = true
 
 			var cur_dot = current_bitmap[r][c]
 			var new_dot = bitmap[r][c]
