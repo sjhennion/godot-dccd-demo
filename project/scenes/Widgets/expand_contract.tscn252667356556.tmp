@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://fl02bbohfb7v"]
+
+[ext_resource type="Script" uid="uid://cahu34vmr2yjn" path="res://scenes/Widgets/expand_contract.gd" id="1_5ad2x"]
+[ext_resource type="Shader" uid="uid://b3jkyws4pbmbn" path="res://shaders/wireframe.gdshader" id="2_en3el"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yuhu5"]
+render_priority = 0
+shader = ExtResource("2_en3el")
+shader_parameter/modelColor = Color(1, 1, 1, 1)
+shader_parameter/wireframeColor = Color(0.59418154, 0.7272623, 0.99783736, 1)
+shader_parameter/width = 3.0000001425
+shader_parameter/modelOpacity = 0.0
+shader_parameter/filtered = false
+
+[node name="ExpandContract" type="Node3D"]
+script = ExtResource("1_5ad2x")
+
+[node name="Plane" type="Node3D" parent="."]
+
+[node name="Clutch1" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+height = 0.1
+
+[node name="Clutch2" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.7592381, -1.5580719e-09, 0)
+height = 0.1
+
+[node name="Clutch3" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.7492827, 0, 0)
+height = 0.1
+
+[node name="Platform" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5979856, 0)
+radius = 0.86
+height = 0.048
+material = SubResource("ShaderMaterial_yuhu5")

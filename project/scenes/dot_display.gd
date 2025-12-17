@@ -43,7 +43,7 @@ func _ready():
 	#draw_display("peanut", peanut_bitmap)
 
 	call_deferred("start_bitmap_cycle_loop")
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.0).timeout
 
 var clear_started := false
 func start_clear() -> void:
@@ -307,7 +307,6 @@ func handle_mouse_over() -> void:
 		#print("No mouse3d")
 		mouse_3d -= (position + Vector3(-0.9, -0.1, 0.0))
 		#print(mouse_3d)
-		return
 		mouse_over(mouse_3d)
 
 

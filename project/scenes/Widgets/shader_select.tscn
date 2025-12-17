@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://boubkwpum0lhb"]
+
+[ext_resource type="Script" uid="uid://did3cn6mcuuy2" path="res://scenes/Widgets/shader_select.gd" id="1_7oixr"]
+[ext_resource type="Shader" uid="uid://b3jkyws4pbmbn" path="res://shaders/wireframe.gdshader" id="2_vrg6v"]
+[ext_resource type="Shader" uid="uid://cthl5ve4qwyr7" path="res://shaders/hologram.gdshader" id="3_8xovc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vrg6v"]
+render_priority = 0
+shader = ExtResource("2_vrg6v")
+shader_parameter/modelColor = Color(1, 1, 1, 1)
+shader_parameter/wireframeColor = Color(1, 1, 1, 1)
+shader_parameter/width = 3.0000001425
+shader_parameter/modelOpacity = 0.0
+shader_parameter/filtered = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lyrvg"]
+render_priority = 0
+shader = ExtResource("3_8xovc")
+shader_parameter/hologram_color = Color(0, 0, 0, 1)
+shader_parameter/transparency = 0.6
+shader_parameter/glitch_strength = 0.3
+shader_parameter/glow_intensity = 0.4
+shader_parameter/time_factor = 1.0
+shader_parameter/noise_amount = 0.05
+shader_parameter/vertical_shift_speed = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ph3ed"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xovc"]
+render_priority = 0
+shader = ExtResource("2_vrg6v")
+shader_parameter/modelColor = Color(1, 1, 1, 1)
+shader_parameter/wireframeColor = Color(0.60709375, 0.73619384, 0.9979045, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/modelOpacity = 0.0
+shader_parameter/filtered = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eaei1"]
+render_priority = 0
+shader = ExtResource("2_vrg6v")
+shader_parameter/modelColor = Color(1, 1, 1, 1)
+shader_parameter/wireframeColor = Color(0.59418154, 0.7272623, 0.99783736, 1)
+shader_parameter/width = 3.0000001425
+shader_parameter/modelOpacity = 0.0
+shader_parameter/filtered = false
+
+[node name="ShaderSelect" type="Node3D"]
+script = ExtResource("1_7oixr")
+
+[node name="Plane" type="Node3D" parent="."]
+
+[node name="Blank" type="CSGBox3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.13041815)
+size = Vector3(0.05, 0.05, 0.05)
+material = SubResource("ShaderMaterial_vrg6v")
+
+[node name="Wireframe" type="CSGBox3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117003724, 0, -0.06579121)
+size = Vector3(0.05, 0.05, 0.05)
+material = SubResource("ShaderMaterial_lyrvg")
+
+[node name="Hologram" type="CSGBox3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1170375, 0, -0.06757002)
+size = Vector3(0.05, 0.05, 0.05)
+material = SubResource("ShaderMaterial_ph3ed")
+
+[node name="Ring" type="CSGTorus3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.035105206, 0)
+visible = false
+inner_radius = 0.13
+outer_radius = 0.136
+sides = 12
+ring_sides = 3
+material = SubResource("ShaderMaterial_8xovc")
+
+[node name="Platform" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06629273, 0)
+radius = 0.153
+height = 0.008
+material = SubResource("ShaderMaterial_eaei1")

@@ -7,9 +7,9 @@ var cur_next_text := ""
 var cur_text_index := 0
 
 var initial_delay := 1.0
-var letter_time := 0.08
-var blink_time := 0.35
-var blink_target_count := 6
+var letter_time := 0.07
+var blink_time := 0.25
+var blink_target_count := 4
 var blink_count := 0
 
 var clear_called := false
@@ -22,6 +22,7 @@ func _ready() -> void:
 
 func start_clear() -> void:
 	clear_called = true
+	text_chunks.clear()
 	clear_text()
 
 func reset_to_main() -> void:
@@ -52,7 +53,8 @@ func cursor_blink() -> void:
 		await get_tree().create_timer(blink_time).timeout
 		cursor_blink()
 	elif text_chunks.size() > 0:
-		cur_full_text += cur_next_text + "\n"
+		if not cur_next_text.is_empty():
+			cur_full_text += cur_next_text + "\n"
 		cur_next_text = text_chunks.pop_front()
 		cur_text_index = 0
 		text[text.length() - 1] = " "

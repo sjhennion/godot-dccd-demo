@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://3rdu6jqi30ly"]
+[gd_scene load_steps=7 format=3 uid="uid://3rdu6jqi30ly"]
 
 [ext_resource type="PackedScene" uid="uid://xnnu1thsdlcn" path="res://models/clutch_plate_front_outer_spline.tscn" id="1_185vh"]
 [ext_resource type="Script" uid="uid://bm7fgmmqw7v7" path="res://scenes/fixture.gd" id="1_nv5yu"]
 [ext_resource type="PackedScene" uid="uid://7g33g5tsnxyf" path="res://models/clutch_plate_front_inner_spline.tscn" id="3_gfij8"]
-[ext_resource type="PackedScene" uid="uid://qel5jo3ps4ga" path="res://models/housing.tscn" id="4_ryhvc"]
 [ext_resource type="PackedScene" uid="uid://diopde46rum2o" path="res://models/housing_ring.tscn" id="5_w6t3j"]
+[ext_resource type="PackedScene" uid="uid://be740wdjquns" path="res://models/planetary_gear_assembly_top_housing.tscn" id="6_81lgk"]
+[ext_resource type="PackedScene" uid="uid://bv468s00wmj4l" path="res://models/planetary_gears.tscn" id="6_v1xyg"]
 
 [node name="Fixture" type="Node3D"]
 script = ExtResource("1_nv5yu")
@@ -45,12 +46,14 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0
 [node name="Mesh" parent="clutch_plate_front_inner_spline3/Node/Node2" index="0"]
 offset = 3.5
 
-[node name="housing" parent="." instance=ExtResource("4_ryhvc")]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, -3)
-visible = false
-
 [node name="housing_ring" parent="." instance=ExtResource("5_w6t3j")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -3)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -4.4005475)
+
+[node name="planetary_gear_assembly_top_housing" parent="." instance=ExtResource("6_81lgk")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -3.300336)
+
+[node name="planetary_gears" parent="." instance=ExtResource("6_v1xyg")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -3.744164)
 
 [editable path="clutch_plate_front_outer_spline"]
 [editable path="clutch_plate_front_outer_spline2"]

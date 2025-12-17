@@ -1,52 +1,79 @@
-[gd_scene load_steps=6 format=3 uid="uid://4023v5cxetli"]
+[gd_scene load_steps=11 format=3 uid="uid://4023v5cxetli"]
 
 [ext_resource type="Script" uid="uid://bbx2m6oimbea8" path="res://scenes/root.gd" id="1_twpsu"]
+[ext_resource type="Script" uid="uid://dcsjmoosvv2df" path="res://scenes/mobile_camera.gd" id="2_j287u"]
 [ext_resource type="PackedScene" uid="uid://b3tuqjk7cg04" path="res://scenes/dot_display.tscn" id="2_lrqlo"]
 [ext_resource type="PackedScene" uid="uid://3rdu6jqi30ly" path="res://scenes/fixture.tscn" id="2_twpsu"]
 [ext_resource type="PackedScene" uid="uid://01evbmqmeqv5" path="res://scenes/StylizedLabel3D.tscn" id="3_sqa0i"]
+[ext_resource type="PackedScene" uid="uid://bp2mpc0s2kqqa" path="res://scenes/Widgets/shader_select_widget.tscn" id="6_j287u"]
+[ext_resource type="PackedScene" uid="uid://cja1ys08nqabw" path="res://scenes/Widgets/expand_contract_widget.tscn" id="7_j287u"]
 
 [sub_resource type="Environment" id="Environment_kycxp"]
 background_mode = 1
 background_color = Color(0.22745098, 0.4509804, 0.9882353, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j287u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jh1ax"]
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_twpsu")
 
-[node name="MainMenu" type="Node3D" parent="."]
+[node name="MobileCamera" type="Camera3D" parent="."]
+environment = SubResource("Environment_kycxp")
+script = ExtResource("2_j287u")
 
-[node name="StartingCameraSetup" type="Node3D" parent="MainMenu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4689163, 1.792)
+[node name="StartingDotDisplay" parent="MobileCamera" instance=ExtResource("2_lrqlo")]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 2.1612206, -1.22871, -3)
 
-[node name="StartingDotDisplay" parent="MainMenu" instance=ExtResource("2_lrqlo")]
-transform = Transform3D(0.9805397, 0, -0.19632259, 0, 1, 0, 0.19632259, 0, 0.9805397, 2.117, -1.6510992, -0.826)
-
-[node name="TitleCard" parent="MainMenu" instance=ExtResource("3_sqa0i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.275, -2.0536654, -1.002)
+[node name="TitleCard" parent="MobileCamera" instance=ExtResource("3_sqa0i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2189326, 1.7574046, -3)
 outline_modulate = Color(1, 1, 1, 1)
 font_size = 24
 outline_size = 2
 horizontal_alignment = 0
-vertical_alignment = 2
-
-[node name="MobileCamera" type="Camera3D" parent="."]
-environment = SubResource("Environment_kycxp")
 
 [node name="Fixture" parent="." instance=ExtResource("2_twpsu")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, -1)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.7715735, 0, -1)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
 [node name="StaticSideProfileSetup" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21179783, 0, 1.9426746)
 
 [node name="ThreeQuarterCameraPanSetup" type="Node3D" parent="."]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -1, 0, 0)
 
 [node name="SideProfilePanSetup" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1128635)
 
 [node name="HousingSideSetup" type="Node3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -1.5674775, 0, 0.713)
 
 [node name="FixtureCenterPoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.158, 0, -1)
+
+[node name="StartingCameraSetup" type="Node3D" parent="."]
+transform = Transform3D(0.9578225, 0, 0.2873605, 0, 1, 0, -0.2873605, 0, 0.9578225, 2.3318565, 0.001134038, -0.28402722)
+
+[node name="UILines" type="Node3D" parent="."]
+
+[node name="StartingLine" type="CSGCylinder3D" parent="UILines"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3436775, 0, -1.1712154)
+radius = 0.002
+height = 0.001
+material = SubResource("StandardMaterial3D_j287u")
+
+[node name="SideLine" type="CSGCylinder3D" parent="UILines"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.24846081, -0.2699591, 1.1745068)
+radius = 0.002
+height = 0.001
+material = SubResource("StandardMaterial3D_jh1ax")
+
+[node name="Buttons" type="Node3D" parent="."]
+
+[node name="ShaderSelectWidget" parent="Buttons" instance=ExtResource("6_j287u")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.51672, -0.514688, 0.89326787)
+
+[node name="ExpandContractWidget" parent="Buttons" instance=ExtResource("7_j287u")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.15910995, -0.48800826, 0.9929676)

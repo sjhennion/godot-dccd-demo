@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cja1ys08nqabw"]
+
+[ext_resource type="PackedScene" uid="uid://fl02bbohfb7v" path="res://scenes/Widgets/expand_contract.tscn" id="1_momti"]
+[ext_resource type="Script" uid="uid://l4meie2yoiej" path="res://scenes/Widgets/expand_contract_widget.gd" id="1_xongc"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_bc1ro"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Environment" id="Environment_momti"]
+background_mode = 1
+background_color = Color(0.22745098, 0.4509804, 0.9882353, 1)
+
+[node name="ExpandContractWidget" type="Node3D"]
+script = ExtResource("1_xongc")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = SubResource("ViewportTexture_bc1ro")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+own_world_3d = true
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+environment = SubResource("Environment_momti")
+
+[node name="ExpandContract" parent="SubViewport" instance=ExtResource("1_momti")]
+transform = Transform3D(1, 0, 0, 0, 0.9603424, -0.27882352, 0, 0.27882352, 0.9603424, 0, 0.31225836, -2.4031968)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.003978)

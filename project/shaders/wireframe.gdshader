@@ -5,7 +5,7 @@ render_mode unshaded;
 uniform vec4 modelColor : source_color;
 uniform vec4 wireframeColor : source_color;
 
-uniform float width : hint_range(0.0, 15.) = 1.;
+uniform float width : hint_range(0.0, 15.) = 1.25;
 uniform float modelOpacity : hint_range(0.0, 1.0) = 1.;
 
 uniform bool filtered = false;

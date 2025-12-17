@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp2mpc0s2kqqa"]
+
+[ext_resource type="PackedScene" uid="uid://boubkwpum0lhb" path="res://scenes/Widgets/shader_select.tscn" id="1_6e5gs"]
+[ext_resource type="Script" uid="uid://bo28xlep8p6l3" path="res://scenes/Widgets/shader_select_widget.gd" id="1_an7cu"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_an7cu"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Environment" id="Environment_an7cu"]
+background_mode = 1
+background_color = Color(0.22745098, 0.4509804, 0.9882353, 1)
+
+[node name="ShaderSelectWidget" type="Node3D"]
+script = ExtResource("1_an7cu")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = SubResource("ViewportTexture_an7cu")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+own_world_3d = true
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.06842446)
+environment = SubResource("Environment_an7cu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0287559)
+
+[node name="ShaderSelect" parent="SubViewport" instance=ExtResource("1_6e5gs")]
+transform = Transform3D(1, 0, 0, 0, 0.91987634, -0.3922087, 0, 0.3922087, 0.91987634, 0, 0.023752272, -0.27212006)

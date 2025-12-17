@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://be740wdjquns"]
+
+[ext_resource type="PackedScene" uid="uid://bc0kr8xye1rqn" path="res://models/planetary_gear_assembly_top_housing.gltf" id="1_bodwm"]
+[ext_resource type="Script" uid="uid://cjkjbil6gd1x3" path="res://models/clutch_plate_front_outer_spline.gd" id="2_ogb7b"]
+
+[node name="planetary_gear_assembly_top_housing" instance=ExtResource("1_bodwm")]
+
+[node name="Mesh" parent="Node/Node2" index="0"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+script = ExtResource("2_ogb7b")
