@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://ujbhmyu2msxt"]
+
+[ext_resource type="Shader" uid="uid://b3jkyws4pbmbn" path="res://shaders/wireframe.gdshader" id="1_1k04d"]
+[ext_resource type="Script" uid="uid://dj0llwo8nn5b" path="res://scenes/Widgets/camera_icon.gd" id="1_mgvrs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgvrs"]
+render_priority = 0
+shader = ExtResource("1_1k04d")
+shader_parameter/modelColor = Color(1, 1, 1, 1)
+shader_parameter/wireframeColor = Color(1, 1, 1, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/modelOpacity = 0.0
+shader_parameter/filtered = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1k04d"]
+render_priority = 0
+shader = ExtResource("1_1k04d")
+shader_parameter/modelColor = Color(0, 0, 0, 1)
+shader_parameter/wireframeColor = Color(0.59607846, 0.7254902, 0.99607843, 1)
+shader_parameter/width = 3.0000001425
+shader_parameter/modelOpacity = 0.0
+shader_parameter/filtered = false
+
+[node name="CameraIcon" type="Node3D"]
+script = ExtResource("1_mgvrs")
+
+[node name="Plane" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Plane"]
+transform = Transform3D(0.8033686, 0, -0.595482, 0, 1, 0, 0.595482, 0, 0.8033686, 0.045366496, -0.44589758, -0.053833947)
+size = Vector3(1.1398926, 0.61053467, 0.64941406)
+material = SubResource("ShaderMaterial_mgvrs")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(-3.5116354e-08, -0.8033685, -0.59548193, 0.9999999, -4.371138e-08, 0, -2.6029342e-08, -0.59548193, 0.8033686, 0.6382528, -0.47254086, 0.36055672)
+radius = 0.28173828
+height = 0.3416748
+material = SubResource("ShaderMaterial_mgvrs")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(0.8033686, -0.59547776, 0.0022448725, 0, -0.003769841, -0.9999929, 0.595482, 0.8033629, -0.003028572, -0.18724534, 0.17257893, -0.20440517)
+radius = 0.32666016
+height = 0.27288818
+material = SubResource("ShaderMaterial_mgvrs")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(0.8033686, -0.5954598, 0.005134167, 0, -0.008621869, -0.9999629, 0.59548205, 0.8033389, -0.006926539, 0.34678823, 0.19421685, 0.1780305)
+radius = 0.32763672
+height = 0.2421875
+material = SubResource("ShaderMaterial_mgvrs")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85649705, 0)
+radius = 0.86
+height = 0.048
+material = SubResource("ShaderMaterial_1k04d")

@@ -7,9 +7,9 @@ var cur_next_text := ""
 var cur_text_index := 0
 
 var initial_delay := 1.0
-var letter_time := 0.07
+var letter_time := 0.03
 var blink_time := 0.25
-var blink_target_count := 4
+var blink_target_count := 3
 var blink_count := 0
 
 var clear_called := false
@@ -87,8 +87,9 @@ func post_blink() -> void:
 	else:
 		text[text.length() - 1] = " "
 
+	text[text.length() - 1] = " "
 	await get_tree().create_timer(blink_time).timeout
-	post_blink()
+	#post_blink()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

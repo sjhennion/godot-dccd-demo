@@ -25,6 +25,7 @@ extends Node3D
 @onready var menu_dot_display := $MobileCamera/StartingDotDisplay
 @onready var title_card := $MobileCamera/TitleCard
 @onready var menu_camera_setup := $StartingCameraSetup
+@onready var arrow := $MobileCamera/ArrowWidget
 
 @onready var starting_line := $UILines/StartingLine
 @onready var side_line := $UILines/SideLine
@@ -64,7 +65,7 @@ func setup_starting_line():
 	var line_starting_height := 1.1
 	var line_grow_tween := get_tree().create_tween()
 	line_grow_tween.set_trans(Tween.TransitionType.TRANS_SINE)
-	line_grow_tween.tween_property(starting_line, "height", line_starting_height, 3.0)
+	line_grow_tween.tween_property(starting_line, "height", line_starting_height, 1.5)
 
 func _ready():
 	mobile_camera.position = starting_camera_setup.position
@@ -81,7 +82,7 @@ func setup_fixture():
 	#await get_tree().create_timer(1.0).timeout
 	var fixture_tween := get_tree().create_tween()
 	fixture_tween.set_trans(Tween.TransitionType.TRANS_SINE)
-	fixture_tween.tween_property(fixture, "position", fixture_center_point.position, 10.0)
+	fixture_tween.tween_property(fixture, "position", fixture_center_point.position, 7.0)
 	fixture_tween.tween_callback(func():
 		print("Fixture setup complete")
 		#setup_starting_camera()
@@ -146,6 +147,7 @@ func clear_main_menu():
 	at_main_menu = false
 	menu_dot_display.start_clear()
 	title_card.start_clear()
+	arrow.start_clear()
 
 	var line_shrink_tween := get_tree().create_tween()
 	line_shrink_tween.set_trans(Tween.TransitionType.TRANS_SINE)
@@ -185,6 +187,7 @@ func reset_to_main():
 	setup_title_card()
 	menu_dot_display.reset_to_main()
 	title_card.reset_to_main()
+	arrow.reset_to_main()
 	cur_camera_name = "StartingCamera"
 
 	transition_start.position = mobile_camera.position

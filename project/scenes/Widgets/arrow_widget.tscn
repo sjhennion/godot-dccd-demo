@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7lyvm08djpbg"]
+
+[ext_resource type="Script" uid="uid://wrgyo3dkh0ra" path="res://scenes/Widgets/arrow_widget.gd" id="1_7nax6"]
+[ext_resource type="PackedScene" uid="uid://bc0u8inyboiwk" path="res://scenes/Widgets/arrow.tscn" id="1_8nhl3"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7nax6"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Environment" id="Environment_p7aec"]
+background_mode = 1
+background_color = Color(0.22745098, 0.4509804, 0.9882353, 1)
+
+[node name="ArrowWidget" type="Node3D"]
+script = ExtResource("1_7nax6")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = SubResource("ViewportTexture_7nax6")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+own_world_3d = true
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.35639167)
+environment = SubResource("Environment_p7aec")
+
+[node name="Arrow" parent="SubViewport" instance=ExtResource("1_8nhl3")]
+transform = Transform3D(0.80083597, 0, -0.5988839, 0, 1, 0, 0.5988839, 0, 0.80083597, 3.2054138, 0, -8.662)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1501863)
